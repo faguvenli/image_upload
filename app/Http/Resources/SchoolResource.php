@@ -14,9 +14,11 @@ class SchoolResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $imageResource = ImageResource::collection($this->images);
         return [
             'id' => $this->id,
-            'title' => $this->title
+            'title' => $this->title,
+            'images' => $imageResource
         ];
     }
 }
