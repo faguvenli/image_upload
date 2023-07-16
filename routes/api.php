@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SchoolController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -13,7 +14,13 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+Route::group(["prefix" => "/v1"], function () {
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    Route::get('/schools', [SchoolController::class, 'index']);
+    Route::post('/schools', [SchoolController::class, 'store']);
+    Route::get('/schools/{school}', [SchoolController::class, 'show']);
+    Route::put('/schools/{school}', [SchoolController::class, 'update']);
+    Route::delete('/schools/{school}', [SchoolController::class, 'destroy']);
+
 });
+
