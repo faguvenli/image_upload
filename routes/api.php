@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\SchoolController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,8 @@ Route::group(["prefix" => "/v1"], function () {
     Route::get('/schools/{school}', [SchoolController::class, 'show']);
     Route::put('/schools/{school}', [SchoolController::class, 'update']);
     Route::delete('/schools/{school}', [SchoolController::class, 'destroy']);
+
+    Route::post('/upload_image', [ImageController::class, 'upload']);
 
 });
 
