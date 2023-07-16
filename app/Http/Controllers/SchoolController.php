@@ -6,11 +6,14 @@ use App\Http\Requests\School\SchoolStoreRequest;
 use App\Http\Requests\School\SchoolUpdateRequest;
 use App\Http\Resources\SchoolResource;
 use App\Http\Services\SchoolService;
+use App\Http\Traits\ResponseTrait;
 use App\Models\School;
 use Illuminate\Http\Request;
 
 class SchoolController extends Controller
 {
+    use ResponseTrait;
+
     protected SchoolService $schoolService;
 
     public function __construct(SchoolService $schoolService) {
@@ -18,35 +21,39 @@ class SchoolController extends Controller
     }
 
     public function index() {
-        return SchoolResource::collection(School::all());
+        $schools = SchoolResource::collection(School::all());
+        return $this->successResponse('School List', $schools);
     }
 
     public function store(SchoolStoreRequest $request) {
         try {
             $school = $this->schoolService->store($request->validated());
-            return new SchoolResource($school);
+            return $this->successResponse('School Created!', new SchoolResource($school));
         } catch(\Exception $e) {
-
+            return $this->errorResponse($e->getMessage());
         }
     }
 
     public function show(School $school) {
-        return new SchoolResource($school);
+        $school = new SchoolResource($school);
+        return $this->successResponse('School', $school);
     }
 
     public function update(SchoolUpdateRequest $request, School $school) {
         try {
-            return $this->schoolService->update($school, $request->validated());
+            $school = $this->schoolService->update($school, $request->validated());
+            return $this->successResponse('School updated!', new SchoolResource($school));
         } catch (\Exception $e) {
-
+            return $this->errorResponse($e->getMessage());
         }
     }
 
     public function destroy(School $school) {
         try {
             $this->schoolService->delete($school);
+            return $this->successResponse('School deleted!');
         } catch(\Exception $e) {
-
+            return $this->errorResponse($e->getMessage());
         }
     }
 }
