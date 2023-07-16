@@ -9,7 +9,7 @@ use Intervention\Image\Facades\Image;
 
 class ImageUploadService
 {
-    private array $sizes;
+    public array $sizes;
 
     private string $folder;
 
@@ -21,7 +21,7 @@ class ImageUploadService
         $uploadedFiles = [];
 
         foreach($files as $file) {
-            $this->setFolder();
+            $this->getFolder();
 
             $fileName = $this->getFileName($file);
             $filePath = $this->folder . $fileName;
@@ -58,7 +58,7 @@ class ImageUploadService
         }
     }
 
-    private function setFolder(): void {
+    private function getFolder(): void {
         $lastImageID = 0;
         $lastImage = ImageModel::orderBy('id', 'desc')->first();
 
@@ -69,6 +69,10 @@ class ImageUploadService
         $lastImageID++;
 
         $this->folder = public_path('/images/'.$lastImageID.'/');
+    }
+
+    public function setFolder($folder) {
+        $this->folder = public_path('/images/'.$folder.'/');
     }
 
     private function getFileName($file): string {
@@ -88,11 +92,7 @@ class ImageUploadService
 
     private function getSizes(): void
     {
-        $this->sizes = [
-            'small' => ['width' => 100, 'height' => 100],
-            'medium' => ['width' => 400, 'height' => 400],
-            'large' => ['width' => 800, 'height' => 800]
-        ];
+        $this->sizes = config('image_upload.sizes');
     }
 
     public function setSizes($size) {

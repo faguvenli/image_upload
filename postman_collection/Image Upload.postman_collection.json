@@ -1,0 +1,276 @@
+{
+	"info": {
+		"_postman_id": "2336fcad-5e8c-4759-a734-b573e0767a73",
+		"name": "Image Upload",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6368113"
+	},
+	"item": [
+		{
+			"name": "Upload Image",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "images[]",
+							"type": "file",
+							"src": [
+								"/Users/fevzialtayguvenli/Desktop/images/African-Marigold.jpg",
+								"/Users/fevzialtayguvenli/Desktop/images/African-Violet.jpg",
+								"/Users/fevzialtayguvenli/Desktop/images/Alpenrose.jpg",
+								"/Users/fevzialtayguvenli/Desktop/images/Amaryllis.jpg",
+								"/Users/fevzialtayguvenli/Desktop/images/Types-of-Flowers-in-Garden.jpg"
+							]
+						},
+						{
+							"key": "directory",
+							"value": "schools",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{host}}/api/v1/upload_image",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"upload_image"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get schools",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/v1/schools",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"schools"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create School",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var id = pm.response.json().data.id;",
+							"pm.collectionVariables.set(\"school_id\", id);",
+							"console.log(pm.collectionVariables.get(\"school_id\"));",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "Test 123",
+							"type": "text"
+						},
+						{
+							"key": "images[]",
+							"value": "3",
+							"type": "text"
+						},
+						{
+							"key": "images[]",
+							"value": "4",
+							"type": "text"
+						},
+						{
+							"key": "images[]",
+							"value": "5",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{host}}/api/v1/schools",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"schools"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Show School",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/v1/schools/{{school_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"schools",
+						"{{school_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update School",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "_method",
+							"value": "PUT",
+							"type": "text"
+						},
+						{
+							"key": "title",
+							"value": "Güncellenen okul",
+							"type": "text"
+						},
+						{
+							"key": "images[]",
+							"value": "6",
+							"type": "text"
+						},
+						{
+							"key": "images[]",
+							"value": "7",
+							"type": "text"
+						},
+						{
+							"key": "images[]",
+							"value": "8",
+							"type": "text"
+						},
+						{
+							"key": "images[]",
+							"value": "9",
+							"type": "text"
+						},
+						{
+							"key": "images[]",
+							"value": "10",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{host}}/api/v1/schools/{{school_id}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"schools",
+						"{{school_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete School",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/v1/schools/252",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"schools",
+						"252"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "imageupload.test"
+		},
+		{
+			"key": "school_id",
+			"value": "1"
+		}
+	]
+}

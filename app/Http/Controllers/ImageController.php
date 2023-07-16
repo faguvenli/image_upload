@@ -8,13 +8,13 @@ use Illuminate\Http\Request;
 
 class ImageController extends Controller
 {
-    public function upload(Request $request) {
+    public function upload(Request $request, ImageUploadService $imageUploadService) {
+
         $request->validate([
            'images' => 'required|array|max:5',
            'images.*' => 'image|mimes:jpeg,png|max:10000'
         ]);
 
-        $imageUploadService = new ImageUploadService();
         $uploadedImages = $imageUploadService->upload($request->file('images'));
 
         return response()->json([
